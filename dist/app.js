@@ -1,1 +1,73 @@
-const header=document.getElementById('header'),menu=document.querySelector('.menu'),nav=document.querySelector('nav'),progress=document.querySelector('.scroll-progress');menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));document.querySelectorAll('[data-interest]').forEach(a=>a.addEventListener('click',()=>document.getElementById('interest').value=a.dataset.interest));document.getElementById('enquiry').addEventListener('submit',e=>{e.preventDefault();const d=new FormData(e.currentTarget),g=d.get('message').trim(),m=`Hello Vision Institute!\n\nMy name: ${d.get('name').trim()}\nPhone: ${d.get('phone').trim()}\nInterested in: ${d.get('interest')}${g?`\nMy goal: ${g}`:''}\n\nPlease share more details. Thank you!`;window.open('https://wa.me/919981790168?text='+encodeURIComponent(m),'_blank','noopener,noreferrer')});const box=document.querySelector('.lightbox'),boxImg=box.querySelector('img');document.querySelectorAll('[data-full]').forEach(b=>b.addEventListener('click',()=>{boxImg.src=b.dataset.full;boxImg.alt=b.querySelector('img').alt;box.showModal()}));box.querySelector('button').addEventListener('click',()=>box.close());box.addEventListener('click',e=>{if(e.target===box)box.close()});document.getElementById('year').textContent=new Date().getFullYear();if('IntersectionObserver'in window&&!matchMedia('(prefers-reduced-motion:reduce)').matches){document.documentElement.classList.add('motion');const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');o.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.reveal').forEach(e=>o.observe(e))}let tick=false;addEventListener('scroll',()=>{if(!tick){requestAnimationFrame(()=>{header.classList.toggle('fixed',scrollY>80);const m=document.documentElement.scrollHeight-innerHeight;progress.style.width=(m?scrollY/m*100:0)+'%';tick=false});tick=true}},{passive:true});
+const header = document.getElementById('header');
+const menu = document.querySelector('.menu');
+const nav = document.querySelector('nav');
+const progress = document.querySelector('.scroll-progress');
+
+menu.addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  menu.setAttribute('aria-expanded', String(open));
+});
+
+nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+  nav.classList.remove('open');
+  menu.setAttribute('aria-expanded', 'false');
+  nav.querySelectorAll('details').forEach((group) => group.removeAttribute('open'));
+}));
+
+document.addEventListener('click', (event) => {
+  if (!header.contains(event.target)) {
+    nav.classList.remove('open');
+    menu.setAttribute('aria-expanded', 'false');
+    nav.querySelectorAll('details').forEach((group) => group.removeAttribute('open'));
+  }
+});
+
+document.querySelectorAll('[data-interest]').forEach((link) => link.addEventListener('click', () => {
+  const interest = document.getElementById('interest');
+  const requested = link.dataset.interest;
+  const matchingOption = [...interest.options].find((option) => option.value === requested || option.text === requested);
+  interest.value = matchingOption ? matchingOption.value : 'General enquiry';
+}));
+
+document.getElementById('enquiry').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  const goal = String(data.get('message') || '').trim();
+  const message = `Hello Vision Institute!\n\nMy name: ${String(data.get('name') || '').trim()}\nPhone: ${String(data.get('phone') || '').trim()}\nInterested in: ${data.get('interest')}${goal ? `\nMy goal: ${goal}` : ''}\n\nPlease share more details. Thank you!`;
+  window.open(`https://wa.me/919981790168?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+});
+
+const lightbox = document.querySelector('.lightbox');
+const lightboxImage = lightbox.querySelector('img');
+document.querySelectorAll('[data-full]').forEach((button) => button.addEventListener('click', () => {
+  lightboxImage.src = button.dataset.full;
+  lightboxImage.alt = button.querySelector('img').alt;
+  lightbox.showModal();
+}));
+lightbox.querySelector('button').addEventListener('click', () => lightbox.close());
+lightbox.addEventListener('click', (event) => { if (event.target === lightbox) lightbox.close(); });
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion:reduce)').matches) {
+  document.documentElement.classList.add('motion');
+  const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  }), { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+}
+
+let ticking = false;
+addEventListener('scroll', () => {
+  if (ticking) return;
+  requestAnimationFrame(() => {
+    header.classList.toggle('fixed', scrollY > 80);
+    const maxScroll = document.documentElement.scrollHeight - innerHeight;
+    progress.style.width = `${maxScroll ? (scrollY / maxScroll) * 100 : 0}%`;
+    ticking = false;
+  });
+  ticking = true;
+}, { passive: true });
