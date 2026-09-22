@@ -1,0 +1,346 @@
+/* Accessibility, typography and mobile refinements */
+
+/* Darker accent text wherever gold sits on a light surface. */
+.about-section .eyebrow,
+.director .eyebrow,
+.courses-section > .wrap > .section-heading .eyebrow,
+.career .section-heading .eyebrow,
+.why-us .eyebrow,
+.student-stories .eyebrow,
+.press .eyebrow,
+.reviews .eyebrow,
+.mode-card:not(.dark) .eyebrow {
+  color: #70480c;
+}
+
+.director-copy h2 em,
+.internship-head h2 em {
+  color: #70480c;
+}
+
+.course-card:not(.highlight) > span,
+.reason-grid article > span {
+  color: #70480c;
+}
+
+.mode-card:not(.dark) p,
+.career .section-heading > p,
+.signature span,
+.rating small,
+blockquote footer small {
+  color: #5f594e;
+}
+
+.career-card.gold p,
+.career-card.gold li {
+  color: #44320f;
+}
+
+.submit {
+  color: #14110b;
+  font-weight: 700;
+}
+
+.whatsapp {
+  background: #16794a;
+  font-weight: 600;
+}
+
+.footer-row .brand small {
+  color: #5d574d;
+}
+
+.footer-word span {
+  color: #70480c;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #aaa59b;
+  opacity: 1;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #f1d79c;
+  outline-offset: 3px;
+}
+
+@media (max-width: 720px) {
+  html {
+    scroll-padding-top: 78px;
+  }
+
+  body {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  header {
+    padding: 14px 18px;
+  }
+
+  header .brand {
+    min-width: 0;
+    font-size: 17px;
+    gap: 10px;
+    letter-spacing: .08em;
+  }
+
+  header .brand img {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+  }
+
+  header .brand small {
+    margin-top: 6px;
+    font-size: 7px;
+    letter-spacing: .12em;
+  }
+
+  nav {
+    top: 71px;
+    gap: 3px;
+    padding: 18px 22px 24px;
+    max-height: calc(100svh - 71px);
+    background: rgba(9, 9, 9, .98);
+  }
+
+  nav > a,
+  .nav-group summary {
+    display: block;
+    min-height: 44px;
+    padding: 11px 4px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .nav-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    padding: 10px 14px;
+  }
+
+  .nav-drop {
+    margin: 0 0 8px;
+    padding: 5px 10px;
+  }
+
+  .nav-drop a {
+    min-height: 42px;
+    padding: 11px 8px;
+    font-size: 12px;
+  }
+
+  .hero {
+    min-height: 820px;
+  }
+
+  .hero-content {
+    padding-top: 118px;
+  }
+
+  .hero-kicker {
+    margin-bottom: 64px;
+    color: #f0ece4;
+  }
+
+  .hero h1 {
+    max-width: 100%;
+    font-size: clamp(40px, 11vw, 48px);
+    line-height: 1.03;
+    letter-spacing: -.045em;
+    overflow-wrap: normal;
+  }
+
+  .hero h1 em {
+    display: block;
+    font-size: 1em;
+  }
+
+  .hero-services {
+    margin: -24px 0 20px;
+    color: #f0ece4;
+    font-size: 9px;
+    line-height: 1.75;
+    letter-spacing: .07em;
+  }
+
+  .hero-foot > p {
+    color: #f0ece4;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .hero-actions a {
+    display: flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 14px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .section-heading h2,
+  .review-head h2,
+  .contact-title h2 {
+    font-size: clamp(35px, 10vw, 40px);
+    line-height: 1.08;
+    overflow-wrap: break-word;
+  }
+
+  .director-copy h2,
+  .internship-head h2 {
+    font-size: clamp(35px, 10vw, 40px);
+    line-height: 1.1;
+  }
+
+  .about-copy .lead {
+    font-size: 22px;
+    line-height: 1.45;
+  }
+
+  .about-copy,
+  .section-heading > p,
+  .director-copy > p,
+  .mode-card p,
+  .career-card p,
+  .career-card li,
+  .purpose-card p,
+  .purpose-card li {
+    font-size: 14px;
+  }
+
+  .purpose-card h2 {
+    font-size: 29px;
+  }
+
+  .vision-path {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: visible;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .course-card h3,
+  .mode-card h3,
+  .internship-info h3,
+  .career-card h3 {
+    overflow-wrap: break-word;
+  }
+
+  .career-card h3 {
+    font-size: 29px;
+  }
+
+  .reason-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reason-grid article {
+    min-height: 0;
+    padding: 24px;
+  }
+
+  .reason-grid h3 {
+    margin-top: 24px;
+  }
+
+  .award-numbers {
+    grid-template-columns: 1fr;
+  }
+
+  .credentials-inline a {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .credentials-inline a span {
+    font-size: 16px;
+  }
+
+  .social-links {
+    flex-wrap: wrap;
+  }
+
+  .rating strong {
+    font-size: 56px;
+  }
+
+  input,
+  select,
+  textarea {
+    min-height: 46px;
+    font-size: 16px;
+    color-scheme: dark;
+  }
+
+  .submit {
+    min-height: 50px;
+    font-size: 11px;
+  }
+
+  .phone {
+    font-size: 24px;
+    overflow-wrap: anywhere;
+  }
+
+  .footer-row .brand {
+    font-size: 17px;
+  }
+
+  .footer-word {
+    overflow: hidden;
+  }
+
+  .motion-cursor {
+    display: none !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .wrap {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  header {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  header .brand {
+    font-size: 15px;
+  }
+
+  header .brand small {
+    font-size: 6px;
+  }
+
+  .hero h1 {
+    font-size: 39px;
+  }
+
+  .award-objects {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-row {
+    grid-template-columns: 1fr;
+  }
+}
