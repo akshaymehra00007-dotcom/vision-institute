@@ -71,3 +71,78 @@ addEventListener('scroll', () => {
   });
   ticking = true;
 }, { passive: true });
+
+// Cursor-led motion for key information sections. It is intentionally disabled
+// on touch devices and when the visitor prefers reduced motion.
+const canUseCursorMotion = matchMedia('(hover: hover) and (pointer: fine)').matches
+  && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (canUseCursorMotion) {
+  const reactiveSections = document.querySelectorAll([
+    '.purpose',
+    '.courses-section',
+    '.internships',
+    '.career',
+    '.why-us',
+    '.affiliations'
+  ].join(','));
+  const reactiveCards = document.querySelectorAll([
+    '.purpose-card',
+    '.course-card',
+    '.mode-card',
+    '.internship-info',
+    '.career-card',
+    '.reason-grid article',
+    '.affiliation-grid article'
+  ].join(','));
+
+  const cursorDot = document.createElement('span');
+  const cursorRing = document.createElement('span');
+  cursorDot.className = 'motion-cursor motion-cursor-dot';
+  cursorRing.className = 'motion-cursor motion-cursor-ring';
+  document.body.append(cursorDot, cursorRing);
+
+  let pointerX = 0;
+  let pointerY = 0;
+  let ringX = 0;
+  let ringY = 0;
+
+  const animateRing = () => {
+    ringX += (pointerX - ringX) * 0.16;
+    ringY += (pointerY - ringY) * 0.16;
+    cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+    requestAnimationFrame(animateRing);
+  };
+  requestAnimationFrame(animateRing);
+
+  reactiveSections.forEach((section) => {
+    section.classList.add('cursor-reactive');
+    section.addEventListener('pointerenter', () => document.body.classList.add('cursor-motion-active'));
+    section.addEventListener('pointerleave', () => document.body.classList.remove('cursor-motion-active'));
+    section.addEventListener('pointermove', (event) => {
+      const bounds = section.getBoundingClientRect();
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      cursorDot.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
+      section.style.setProperty('--cursor-x', `${event.clientX - bounds.left}px`);
+      section.style.setProperty('--cursor-y', `${event.clientY - bounds.top}px`);
+    });
+  });
+
+  reactiveCards.forEach((card) => {
+    card.classList.add('cursor-card');
+    card.addEventListener('pointermove', (event) => {
+      const bounds = card.getBoundingClientRect();
+      const x = event.clientX - bounds.left;
+      const y = event.clientY - bounds.top;
+      card.style.setProperty('--card-x', `${x}px`);
+      card.style.setProperty('--card-y', `${y}px`);
+      card.style.setProperty('--tilt-x', `${((y / bounds.height) - 0.5) * -2.2}deg`);
+      card.style.setProperty('--tilt-y', `${((x / bounds.width) - 0.5) * 2.2}deg`);
+    });
+    card.addEventListener('pointerleave', () => {
+      card.style.setProperty('--tilt-x', '0deg');
+      card.style.setProperty('--tilt-y', '0deg');
+    });
+  });
+}
